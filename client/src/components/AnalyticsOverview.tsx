@@ -18,6 +18,8 @@ import {
 } from "lucide-react";
 import DevicesPieChart from "./charts/DevicesPieChart";
 import WeeklyBarChart from "./charts/WeeklyBarChart";
+import HeatmapChart from "./charts/HeatmapChart";
+import TimeSpentChart from "./charts/TimeSpentChart";
 import { Card, CardContent } from "@/components/ui/card";
 
 const AnalyticsOverview: React.FC = () => {
@@ -317,9 +319,59 @@ const AnalyticsOverview: React.FC = () => {
                 </TabsContent>
                 
                 <TabsContent value="heatmap" className="mt-6">
-                  <div className="rounded-lg bg-gray-50 h-[300px] flex items-center justify-center border border-gray-100">
-                    <p className="text-gray-500">Heatmap visualization would display here showing where users click and spend time on your content.</p>
-                  </div>
+                  <Card className="border border-gray-100 shadow-sm">
+                    <CardContent className="p-6">
+                      <div className="flex justify-between items-center mb-6">
+                        <div className="flex items-center space-x-3">
+                          <div className="bg-[#7C5832] bg-opacity-10 p-2 rounded-lg">
+                            <PieChart className="w-5 h-5 text-[#7C5832]" />
+                          </div>
+                          <h3 className="font-medium text-gray-800">Heatmap Analysis</h3>
+                        </div>
+                        <div>
+                          <span className="px-3 py-1 bg-[#7C5832] bg-opacity-5 text-[#7C5832] text-sm rounded-md font-medium">Last week</span>
+                        </div>
+                      </div>
+                      
+                      <HeatmapChart 
+                        inView={inView}
+                        data={[
+                          { x: 37, y: 25, intensity: 10, clicks: 38 },
+                          { x: 15, y: 70, intensity: 10, clicks: 10 },
+                          { x: 73, y: 87, intensity: 7, clicks: 7 },
+                          { x: 88, y: 18, intensity: 7, clicks: 7 },
+                          { x: 65, y: 60, intensity: 4, clicks: 4 },
+                          { x: 45, y: 40, intensity: 3, clicks: 3 },
+                          { x: 55, y: 30, intensity: 3, clicks: 3 },
+                          { x: 25, y: 50, intensity: 2, clicks: 2 },
+                          { x: 82, y: 65, intensity: 2, clicks: 2 },
+                          { x: 92, y: 30, intensity: 1, clicks: 1 }
+                        ]}
+                      />
+                      
+                      <div className="mt-6 bg-[#F8F6F3]/60 p-4 rounded-lg">
+                        <h4 className="font-medium text-gray-800 mb-2">Heatmap Insights</h4>
+                        <ul className="space-y-2 text-sm text-gray-600">
+                          <li className="flex items-start">
+                            <div className="text-[#7C5832] mr-2">•</div>
+                            <p>Users are focusing most on your logo and primary CTA button</p>
+                          </li>
+                          <li className="flex items-start">
+                            <div className="text-[#7C5832] mr-2">•</div>
+                            <p>38% of clicks occur in the header area, showing strong brand recognition</p>
+                          </li>
+                          <li className="flex items-start">
+                            <div className="text-[#7C5832] mr-2">•</div>
+                            <p>The "Get Started" button receives 7x more engagement than any other element</p>
+                          </li>
+                          <li className="flex items-start">
+                            <div className="text-[#7C5832] mr-2">•</div>
+                            <p>Consider optimizing lower-performing areas by adding more attention-grabbing elements</p>
+                          </li>
+                        </ul>
+                      </div>
+                    </CardContent>
+                  </Card>
                 </TabsContent>
                 
                 <TabsContent value="deviceAnalytics" className="mt-6">
@@ -490,9 +542,36 @@ const AnalyticsOverview: React.FC = () => {
                 </TabsContent>
                 
                 <TabsContent value="timeSpent" className="mt-6">
-                  <div className="rounded-lg bg-gray-50 h-[300px] flex items-center justify-center border border-gray-100">
-                    <p className="text-gray-500">Time spent analytics would display here showing how long users engage with your content.</p>
-                  </div>
+                  <Card className="border border-gray-100 shadow-sm">
+                    <CardContent className="p-6">
+                      <div className="flex justify-between items-center mb-6">
+                        <div className="flex items-center space-x-3">
+                          <div className="bg-[#7C5832] bg-opacity-10 p-2 rounded-lg">
+                            <Clock className="w-5 h-5 text-[#7C5832]" />
+                          </div>
+                          <h3 className="font-medium text-gray-800">Time Spent Analysis</h3>
+                        </div>
+                        <div>
+                          <span className="px-3 py-1 bg-[#7C5832] bg-opacity-5 text-[#7C5832] text-sm rounded-md font-medium">Last month</span>
+                        </div>
+                      </div>
+                      
+                      {/* Custom Time Spent Chart */}
+                      <TimeSpentChart 
+                        inView={inView}
+                        data={[
+                          { date: "Jan 1", value: 25 },
+                          { date: "Jan 5", value: 32 },
+                          { date: "Jan 9", value: 20 },
+                          { date: "Jan 13", value: 40 },
+                          { date: "Jan 17", value: 35 },
+                          { date: "Jan 21", value: 48 },
+                          { date: "Jan 25", value: 59, label: "Peak" },
+                          { date: "Jan 29", value: 45 }
+                        ]}
+                      />
+                    </CardContent>
+                  </Card>
                 </TabsContent>
                 
                 <TabsContent value="videoAnalytics" className="mt-6">
