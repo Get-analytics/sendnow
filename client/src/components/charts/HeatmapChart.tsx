@@ -59,184 +59,173 @@ const HeatmapChart: React.FC<HeatmapChartProps> = ({
     }
   };
 
+  // Define gradient colors for heatmap
+  const getGradientColor = (intensity: number) => {
+    // Colors for low to high intensity (blue -> green -> yellow -> red)
+    if (intensity <= 3) return "rgba(0, 0, 255, 0.3)";
+    if (intensity <= 5) return "rgba(0, 255, 0, 0.3)";
+    if (intensity <= 8) return "rgba(255, 255, 0, 0.3)";
+    return "rgba(255, 0, 0, 0.3)";
+  };
+
   // Calculate hotspot radius based on intensity
   const getHotspotRadius = (intensity: number) => {
-    return 15 + (intensity * 4); // Base radius 15px + intensity factor
+    return 20 + (intensity * 5); // Base radius 20px + intensity factor
   };
 
   return (
     <div className="relative">
-      <div className="bg-white rounded-lg overflow-hidden mb-4">
-        <div className="px-6 pt-6 pb-2 flex justify-between items-start">
-          <div className="mb-4">
-            <h3 className="text-xl font-medium text-gray-500">Heat map</h3>
-            <h2 className="text-2xl font-bold text-gray-900">3,834 clicks</h2>
-          </div>
-          
-          <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
-            <div className="flex flex-col items-center justify-center">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9 9L15 3M15 3H9M15 3V9M15 15L9 21M9 21H15M9 21L9 15" stroke="#7C5832" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+      <motion.div
+        className="relative bg-white rounded-lg overflow-hidden"
+        style={{ width: width, height: height, margin: "0 auto" }}
+        variants={containerVariants}
+        initial="hidden"
+        animate={inView ? "visible" : "hidden"}
+      >
+        {/* Background image or mockup */}
+        <div className="absolute inset-0 bg-gray-50 flex items-center justify-center">
+          {imageUrl ? (
+            <img 
+              src={imageUrl} 
+              alt="Website mockup" 
+              className="w-full h-full object-contain"
+            />
+          ) : (
+            // Mock website layout if no image provided
+            <div className="w-full h-full p-4 relative">
+              {/* Header */}
+              <div className="h-16 bg-white border border-gray-200 rounded-lg mb-4 flex items-center px-4">
+                <div className="flex items-center space-x-2">
+                  <div className="w-8 h-8 rounded-full bg-[#D4C5B4] flex items-center justify-center">
+                    <span className="text-[#7C5832] text-xs font-medium">SN</span>
+                  </div>
+                  <div className="font-bold">sendnow</div>
+                </div>
+                <div className="flex-1 flex justify-center">
+                  <div className="space-x-4 text-sm">
+                    <span>Features</span>
+                    <span>Pricing</span>
+                    <span>About</span>
+                    <span>Contact</span>
+                  </div>
+                </div>
+                <div className="bg-[#7C5832] px-3 py-1 rounded-md text-white text-sm">
+                  Get started
+                </div>
+              </div>
+              
+              {/* Hero */}
+              <div className="h-64 bg-white border border-gray-200 rounded-lg mb-4 p-6 flex">
+                <div className="flex-1">
+                  <div className="w-3/4 h-8 bg-gray-200 rounded mb-4"></div>
+                  <div className="w-1/2 h-4 bg-gray-200 rounded mb-2"></div>
+                  <div className="w-2/3 h-4 bg-gray-200 rounded mb-6"></div>
+                  <div className="w-32 h-10 bg-[#7C5832] rounded-md"></div>
+                </div>
+                <div className="flex-1 bg-gray-100 rounded-lg"></div>
+              </div>
+              
+              {/* Features */}
+              <div className="h-32 bg-white border border-gray-200 rounded-lg flex space-x-4 p-4">
+                <div className="flex-1 bg-gray-50 rounded-lg p-3">
+                  <div className="w-1/2 h-4 bg-gray-200 rounded mb-2"></div>
+                  <div className="w-full h-3 bg-gray-200 rounded mb-1"></div>
+                  <div className="w-3/4 h-3 bg-gray-200 rounded"></div>
+                </div>
+                <div className="flex-1 bg-gray-50 rounded-lg p-3">
+                  <div className="w-1/2 h-4 bg-gray-200 rounded mb-2"></div>
+                  <div className="w-full h-3 bg-gray-200 rounded mb-1"></div>
+                  <div className="w-3/4 h-3 bg-gray-200 rounded"></div>
+                </div>
+                <div className="flex-1 bg-gray-50 rounded-lg p-3">
+                  <div className="w-1/2 h-4 bg-gray-200 rounded mb-2"></div>
+                  <div className="w-full h-3 bg-gray-200 rounded mb-1"></div>
+                  <div className="w-3/4 h-3 bg-gray-200 rounded"></div>
+                </div>
+              </div>
             </div>
-          </div>
+          )}
         </div>
         
-        <motion.div
-          className="relative"
-          style={{ width: width, height: height, margin: "0 auto" }}
-          variants={containerVariants}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-        >
-          {/* Background website mockup */}
-          <div className="absolute inset-0 flex items-center justify-center border-t border-gray-100">
-            <div className="w-full h-full p-4 relative bg-[#E5F0FF]/10 flex items-center justify-center">
-              <div className="w-[90%] h-[90%] rounded-lg border border-gray-200 overflow-hidden bg-white">
-                {/* Header */}
-                <div className="h-14 bg-white border-b border-gray-100 flex items-center px-4">
-                  <div className="flex items-center space-x-2">
-                    <img 
-                      src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjQwIiB2aWV3Qm94PSIwIDAgMTIwIDQwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPg0KICA8cGF0aCBkPSJNMjAgMjBDMjAgMTMuOTY0NiAyNC45NjQ2IDkgMzEgOUgzOVYyOUgzMUMyNC45NjQ2IDI5IDIwIDI0LjAzNTQgMjAgMThWMjBaIiBmaWxsPSIjN0M1ODMyIi8+DQogIDxwYXRoIGQ9Ik0zOSA5SDQ3QzUzLjAzNTQgOSA1OCAxMy45NjQ2IDU4IDIwVjE4QzU4IDI0LjAzNTQgNTMuMDM1NCAyOSA0NyAyOUgzOVY5WiIgZmlsbD0iI0Q0QzVCNCIvPg0KICA8cGF0aCBkPSJNNjUuMDI4IDIyLjY3MlY5SDYxLjA5MlYyM0M2MS4wOTIgMjYuMzE0IDYzLjc2OCAyOSA2Ny4wNTQgMjlINzhWMjUuMDY0SDY3LjM1NkM2Ni4wNDYgMjUuMDY0IDY1LjAyOCAyNC4wMTggNjUuMDI4IDIyLjY3MloiIGZpbGw9IiM3QzU4MzIiLz4NCiAgPHBhdGggZD0iTTg3LjQ4NiA5SDgwLjUxNEg3OFYyOUg4MS45MzZWMjIuMDU0SDg3LjQ4NkM5MS4xMiAyMi4wNTQgOTQgMTkuMTc0IDk0IDE1LjUyN0M5NCAxMS44OCA5MS4xMiA5IDg3LjQ4NiA5Wk04Ny4zIDEyLjgwNkM4OC45MTYgMTIuODA2IDkwLjEyMiAxMy45OSA5MC4xMjIgMTUuNTI3QzkwLjEyMiAxNy4wNjQgODguOTc0IDE4LjI0OCA4Ny4zIDE4LjI0OEg4MS45MzZWMTIuODA2SDg3LjNaIiBmaWxsPSIjN0M1ODMyIi8+DQo8L3N2Zz4NCg==" 
-                      alt="Sendnow" 
-                      className="h-8 w-auto"
-                    />
-                  </div>
-                  <div className="flex-1 flex justify-center">
-                    <div className="space-x-6 text-sm text-gray-400">
-                      <span>Features</span>
-                      <span>Pricing</span>
-                      <span>About</span>
-                      <span>Contact</span>
-                    </div>
-                  </div>
-                  <div className="bg-[#7C5832] px-4 py-2 rounded-md text-white text-sm font-medium">
-                    See live demo
-                  </div>
-                </div>
-                
-                {/* Hero */}
-                <div className="px-10 py-8 flex">
-                  <div className="flex-1 pr-8">
-                    <div className="font-bold text-3xl text-gray-800 mb-4">Better your business.</div>
-                    <div className="text-gray-600 mb-6">
-                      Clarity is a free tool that captures how people use your site. Setup is easy and you'll start getting data in minutes.
-                    </div>
-                    <div className="space-y-4">
-                      <div className="flex items-center">
-                        <svg className="w-5 h-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                        <span className="text-gray-700">100k+ sites globally</span>
-                      </div>
-                      <div className="flex items-center">
-                        <svg className="w-5 h-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                        <span className="text-gray-700">100% free</span>
-                      </div>
-                      <div className="flex items-center">
-                        <svg className="w-5 h-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                        <span className="text-gray-700">GDPR & CCPA ready</span>
-                      </div>
-                    </div>
-                    <button className="mt-8 bg-[#7C5832] text-white px-8 py-3 rounded-md font-medium text-sm">
-                      See live demo
-                    </button>
-                  </div>
-                  <div className="flex-1">
-                    <img 
-                      src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+DQogIDxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjRjBGNEY4Ii8+DQogIDxyZWN0IHg9IjUwIiB5PSI1MCIgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIHJ4PSI4IiBmaWxsPSJ3aGl0ZSIgc3Ryb2tlPSIjRTJFOEYwIi8+DQogIDxjaXJjbGUgY3g9IjIwMCIgY3k9IjE1MCIgcj0iNjAiIGZpbGw9IiNFMkU4RjAiLz4NCiAgPHJlY3QgeD0iMTMwIiB5PSIyMjAiIHdpZHRoPSIxNDAiIGhlaWdodD0iMTAiIHJ4PSI1IiBmaWxsPSIjRTJFOEYwIi8+DQogIDxyZWN0IHg9IjE2MCIgeT0iMjQwIiB3aWR0aD0iODAiIGhlaWdodD0iMTAiIHJ4PSI1IiBmaWxsPSIjRTJFOEYwIi8+DQo8L3N2Zz4NCg==" 
-                      alt="Analytics" 
-                      className="w-full rounded-md"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          {/* Heatmap overlay */}
-          <div className="absolute inset-0">
-            <svg width="100%" height="100%" style={{ filter: "blur(10px)" }}>
-              <defs>
-                <radialGradient id="hotspot-red" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-                  <stop offset="0%" stopColor="#FF4500" stopOpacity="0.6" />
-                  <stop offset="100%" stopColor="#FF4500" stopOpacity="0" />
-                </radialGradient>
-                <radialGradient id="hotspot-orange" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-                  <stop offset="0%" stopColor="#FF8C00" stopOpacity="0.6" />
-                  <stop offset="100%" stopColor="#FF8C00" stopOpacity="0" />
-                </radialGradient>
-                <radialGradient id="hotspot-yellow" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-                  <stop offset="0%" stopColor="#FFD700" stopOpacity="0.5" />
-                  <stop offset="100%" stopColor="#FFD700" stopOpacity="0" />
-                </radialGradient>
-              </defs>
-              
-              {data.map((hotspot, index) => {
-                // Determine gradient based on intensity
-                let gradientId = "hotspot-yellow";
-                if (hotspot.intensity >= 8) gradientId = "hotspot-red";
-                else if (hotspot.intensity >= 5) gradientId = "hotspot-orange";
-                
-                return (
-                  <motion.circle
-                    key={index}
-                    cx={`${hotspot.x}%`}
-                    cy={`${hotspot.y}%`}
-                    r={getHotspotRadius(hotspot.intensity)}
-                    fill={`url(#${gradientId})`}
-                    variants={hotspotVariants}
-                  />
-                );
-              })}
-            </svg>
-          </div>
-          
-          {/* Click indicators */}
-          {data.map((hotspot, index) => (
-            <motion.div
-              key={`tooltip-${index}`}
-              className="absolute flex items-center justify-center"
-              style={{ 
-                left: `${hotspot.x}%`, 
-                top: `${hotspot.y}%`,
-                transform: 'translate(-50%, -50%)'
-              }}
-              variants={tooltipVariants}
-            >
-              <div className={`${
-                hotspot.intensity >= 8 
-                  ? 'bg-[#7C5832]' 
-                  : (hotspot.intensity >= 5 ? 'bg-blue-500' : 'bg-blue-400')
-              } text-white rounded-full flex items-center justify-center z-10 
-                ${hotspot.intensity >= 8 ? 'w-8 h-8 text-sm' : 'w-6 h-6 text-xs'}`}
-              >
-                {hotspot.clicks || Math.round(hotspot.intensity * 3)}
-              </div>
-            </motion.div>
-          ))}
-          
-          {/* Tooltip */}
+        {/* Heatmap overlay */}
+        <div className="absolute inset-0">
+          <svg width="100%" height="100%" style={{ filter: "blur(10px)" }}>
+            <defs>
+              <radialGradient id="hotspot-gradient-1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                <stop offset="0%" stopColor="rgba(255,0,0,0.8)" />
+                <stop offset="100%" stopColor="rgba(255,0,0,0)" />
+              </radialGradient>
+              <radialGradient id="hotspot-gradient-2" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                <stop offset="0%" stopColor="rgba(255,165,0,0.8)" />
+                <stop offset="100%" stopColor="rgba(255,165,0,0)" />
+              </radialGradient>
+              <radialGradient id="hotspot-gradient-3" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                <stop offset="0%" stopColor="rgba(0,0,255,0.8)" />
+                <stop offset="100%" stopColor="rgba(0,0,255,0)" />
+              </radialGradient>
+            </defs>
+            
+            {data.map((hotspot, index) => (
+              <motion.circle
+                key={index}
+                cx={`${hotspot.x}%`}
+                cy={`${hotspot.y}%`}
+                r={getHotspotRadius(hotspot.intensity)}
+                fill={`url(#hotspot-gradient-${Math.ceil(hotspot.intensity / 3)})`}
+                variants={hotspotVariants}
+              />
+            ))}
+          </svg>
+        </div>
+        
+        {/* Hotspot labels */}
+        {data.map((hotspot, index) => (
           <motion.div
-            className="absolute top-[30%] left-[15%] bg-white px-3 py-2 rounded shadow-md text-xs z-20"
-            initial={{ opacity: 0, y: 10 }}
-            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-            transition={{ duration: 0.3, delay: 1 }}
+            key={`tooltip-${index}`}
+            className="absolute flex items-center justify-center"
+            style={{ 
+              left: `${hotspot.x}%`, 
+              top: `${hotspot.y}%`,
+              transform: 'translate(-50%, -50%)'
+            }}
+            variants={tooltipVariants}
           >
-            <div className="font-medium">Clicks</div>
-            <div className="text-gray-500">10 (0.06%)</div>
+            <div className="bg-gray-800 text-white rounded-full w-7 h-7 flex items-center justify-center text-xs font-bold z-10">
+              {hotspot.clicks || Math.round(hotspot.intensity * 10)}
+            </div>
           </motion.div>
-        </motion.div>
-      </div>
-      
-      {/* Stats row */}
-      <div className="flex space-x-4">
+        ))}
+        
+        {/* Controls */}
         <motion.div 
-          className="bg-white p-4 rounded-lg shadow-sm flex-1"
+          className="absolute top-4 right-4 flex bg-white rounded-md shadow overflow-hidden"
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.3, delay: 0.5 }}
+        >
+          <button className="p-2 hover:bg-gray-100 border-r">
+            <svg className="w-4 h-4 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+          </button>
+          <button className="p-2 hover:bg-gray-100 border-r">
+            <svg className="w-4 h-4 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </button>
+          <button className="p-2 hover:bg-gray-100">
+            <svg className="w-4 h-4 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+            </svg>
+          </button>
+        </motion.div>
+      </motion.div>
+      
+      {/* Stats */}
+      <div className="mt-6 flex flex-col md:flex-row justify-between">
+        <motion.div 
+          className="bg-white p-4 rounded-lg shadow-sm mb-4 md:mb-0 md:mr-4 flex-1"
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.4, delay: 0.2 }}
@@ -254,7 +243,7 @@ const HeatmapChart: React.FC<HeatmapChartProps> = ({
         </motion.div>
         
         <motion.div 
-          className="bg-white p-4 rounded-lg shadow-sm flex-1"
+          className="bg-white p-4 rounded-lg shadow-sm mb-4 md:mb-0 md:mr-4 flex-1"
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.4, delay: 0.3 }}
@@ -266,9 +255,9 @@ const HeatmapChart: React.FC<HeatmapChartProps> = ({
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
               </svg>
             </div>
-            <h3 className="font-medium text-gray-800 text-sm">CTR</h3>
+            <h3 className="font-medium text-gray-800 text-sm">Click Distribution</h3>
           </div>
-          <div className="text-2xl font-bold">4.7%</div>
+          <div className="text-2xl font-bold">CTR 4.7%</div>
           <div className="text-sm text-gray-500 mt-1">82% focused on CTA buttons</div>
         </motion.div>
         
@@ -284,7 +273,7 @@ const HeatmapChart: React.FC<HeatmapChartProps> = ({
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
             </div>
-            <h3 className="font-medium text-gray-800 text-sm">Active Time</h3>
+            <h3 className="font-medium text-gray-800 text-sm">Most Active Time</h3>
           </div>
           <div className="text-2xl font-bold">Tue 2-4pm</div>
           <div className="text-sm text-gray-500 mt-1">54% of all interactions</div>
