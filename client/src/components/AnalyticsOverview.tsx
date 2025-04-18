@@ -10,8 +10,14 @@ import {
   UploadCloud,
   ClipboardCopy,
   Filter,
-  SlidersHorizontal
+  SlidersHorizontal,
+  Smartphone,
+  Laptop,
+  PieChart,
+  BarChart
 } from "lucide-react";
+import devicesAnalyticsImage from "../assets/images/devices-analytics.png";
+import overallTimeSpendImage from "../assets/images/overall-time-spend.png";
 import { Card, CardContent } from "@/components/ui/card";
 
 const AnalyticsOverview: React.FC = () => {
@@ -76,12 +82,24 @@ const AnalyticsOverview: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <Tabs defaultValue="overview" className="mb-8" onValueChange={setActiveTab}>
-            <TabsList className="border-b border-gray-200 w-full justify-start rounded-none bg-transparent h-auto pb-0 mb-8">
+            <TabsList className="border-b border-gray-200 w-full justify-start rounded-none bg-transparent h-auto pb-0 mb-8 overflow-x-auto">
               <TabsTrigger 
                 value="overview" 
                 className={`mr-8 py-4 border-b-2 px-1 rounded-none data-[state=active]:shadow-none ${activeTab === 'overview' ? 'border-[#7C5832] text-[#7C5832]' : 'border-transparent text-gray-500'}`}
               >
                 Overview
+              </TabsTrigger>
+              <TabsTrigger 
+                value="deviceAnalytics"
+                className={`mr-8 py-4 border-b-2 px-1 rounded-none data-[state=active]:shadow-none ${activeTab === 'deviceAnalytics' ? 'border-[#7C5832] text-[#7C5832]' : 'border-transparent text-gray-500'}`}
+              >
+                Devices Analytics
+              </TabsTrigger>
+              <TabsTrigger 
+                value="overallTimeSpend"
+                className={`mr-8 py-4 border-b-2 px-1 rounded-none data-[state=active]:shadow-none ${activeTab === 'overallTimeSpend' ? 'border-[#7C5832] text-[#7C5832]' : 'border-transparent text-gray-500'}`}
+              >
+                Overall Time Spend
               </TabsTrigger>
               <TabsTrigger 
                 value="heatmap"
@@ -302,6 +320,131 @@ const AnalyticsOverview: React.FC = () => {
                   <div className="rounded-lg bg-gray-50 h-[300px] flex items-center justify-center border border-gray-100">
                     <p className="text-gray-500">Heatmap visualization would display here showing where users click and spend time on your content.</p>
                   </div>
+                </TabsContent>
+                
+                <TabsContent value="deviceAnalytics" className="mt-6">
+                  <Card className="border border-gray-100 shadow-sm">
+                    <CardContent className="p-6">
+                      <div className="flex justify-between items-center mb-6">
+                        <div className="flex items-center space-x-3">
+                          <div className="bg-[#7C5832] bg-opacity-10 p-2 rounded-lg">
+                            <Smartphone className="w-5 h-5 text-[#7C5832]" />
+                          </div>
+                          <h3 className="font-medium text-gray-800">Device Analytics</h3>
+                        </div>
+                        <div>
+                          <span className="px-3 py-1 bg-[#7C5832] bg-opacity-5 text-[#7C5832] text-sm rounded-md font-medium">Last month</span>
+                        </div>
+                      </div>
+                      
+                      {/* Devices Analytics Image */}
+                      <motion.div
+                        className="w-full rounded-lg overflow-hidden"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                        transition={{ duration: 0.6 }}
+                      >
+                        <img 
+                          src={devicesAnalyticsImage} 
+                          alt="Device Analytics" 
+                          className="w-full h-auto"
+                        />
+                      </motion.div>
+                      
+                      {/* Device Breakdown */}
+                      <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div className="p-4 rounded-lg bg-[#7C5832]/5 text-center">
+                          <p className="text-sm text-gray-600 mb-1">Apple</p>
+                          <p className="text-xl font-bold text-[#7C5832]">45%</p>
+                        </div>
+                        <div className="p-4 rounded-lg bg-[#B79F85]/20 text-center">
+                          <p className="text-sm text-gray-600 mb-1">Mac</p>
+                          <p className="text-xl font-bold text-[#7C5832]">25%</p>
+                        </div>
+                        <div className="p-4 rounded-lg bg-[#D4C5B4]/30 text-center">
+                          <p className="text-sm text-gray-600 mb-1">Windows</p>
+                          <p className="text-xl font-bold text-[#7C5832]">20%</p>
+                        </div>
+                        <div className="p-4 rounded-lg bg-[#B79F85]/30 text-center">
+                          <p className="text-sm text-gray-600 mb-1">Android</p>
+                          <p className="text-xl font-bold text-[#7C5832]">15%</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+                
+                <TabsContent value="overallTimeSpend" className="mt-6">
+                  <Card className="border border-gray-100 shadow-sm">
+                    <CardContent className="p-6">
+                      <div className="flex justify-between items-center mb-6">
+                        <div className="flex items-center space-x-3">
+                          <div className="bg-[#7C5832] bg-opacity-10 p-2 rounded-lg">
+                            <BarChart className="w-5 h-5 text-[#7C5832]" />
+                          </div>
+                          <h3 className="font-medium text-gray-800">Overall Time Spend</h3>
+                        </div>
+                        <div>
+                          <span className="px-3 py-1 bg-[#7C5832] bg-opacity-5 text-[#7C5832] text-sm rounded-md font-medium">Last week</span>
+                        </div>
+                      </div>
+                      
+                      {/* Overall Time Spend Image */}
+                      <motion.div
+                        className="w-full rounded-lg overflow-hidden"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                        transition={{ duration: 0.6 }}
+                      >
+                        <img 
+                          src={overallTimeSpendImage} 
+                          alt="Overall Time Spend" 
+                          className="w-full h-auto"
+                        />
+                      </motion.div>
+                      
+                      {/* Weekly Breakdown */}
+                      <div className="mt-6 grid grid-cols-7 gap-2">
+                        <div className="flex flex-col items-center">
+                          <div className="w-full h-24 bg-[#D4C5B4] rounded-t-md mt-auto"></div>
+                          <p className="text-xs text-gray-600 mt-2">Sun</p>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <div className="w-full h-20 bg-[#D4C5B4] rounded-t-md mt-auto"></div>
+                          <p className="text-xs text-gray-600 mt-2">Mon</p>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <div className="w-full h-32 bg-[#D4C5B4] rounded-t-md mt-auto"></div>
+                          <p className="text-xs text-gray-600 mt-2">Tue</p>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <div className="w-full h-26 bg-[#D4C5B4] rounded-t-md mt-auto"></div>
+                          <p className="text-xs text-gray-600 mt-2">Wed</p>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <div className="w-full h-40 bg-[#7C5832] rounded-t-md mt-auto"></div>
+                          <p className="text-xs text-gray-600 mt-2">Thu</p>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <div className="w-full h-30 bg-[#D4C5B4] rounded-t-md mt-auto"></div>
+                          <p className="text-xs text-gray-600 mt-2">Fri</p>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <div className="w-full h-14 bg-[#D4C5B4] rounded-t-md mt-auto"></div>
+                          <p className="text-xs text-gray-600 mt-2">Sat</p>
+                        </div>
+                      </div>
+                      
+                      <div className="mt-6 flex justify-between items-center">
+                        <div className="text-sm text-gray-600">
+                          <span className="font-medium">Average time:</span> 27 minutes
+                        </div>
+                        <div className="text-sm text-gray-600">
+                          <span className="font-medium">Peak day:</span> Thursday (40 min)
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
                 </TabsContent>
                 
                 <TabsContent value="timeSpent" className="mt-6">
