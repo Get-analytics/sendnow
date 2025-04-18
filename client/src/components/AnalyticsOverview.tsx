@@ -16,8 +16,8 @@ import {
   PieChart,
   BarChart
 } from "lucide-react";
-import devicesAnalyticsImage from "../assets/images/devices-analytics.png";
-import overallTimeSpendImage from "../assets/images/overall-time-spend.png";
+import DevicesPieChart from "./charts/DevicesPieChart";
+import WeeklyBarChart from "./charts/WeeklyBarChart";
 import { Card, CardContent } from "@/components/ui/card";
 
 const AnalyticsOverview: React.FC = () => {
@@ -337,19 +337,52 @@ const AnalyticsOverview: React.FC = () => {
                         </div>
                       </div>
                       
-                      {/* Devices Analytics Image */}
-                      <motion.div
-                        className="w-full rounded-lg overflow-hidden"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                        transition={{ duration: 0.6 }}
-                      >
-                        <img 
-                          src={devicesAnalyticsImage} 
-                          alt="Device Analytics" 
-                          className="w-full h-auto"
-                        />
-                      </motion.div>
+                      <div className="flex flex-col md:flex-row">
+                        <div className="flex-1">
+                          {/* Custom Pie Chart */}
+                          <DevicesPieChart 
+                            inView={inView}
+                            data={[
+                              { name: "Apple", value: 45, color: "#7C5832" },
+                              { name: "Mac", value: 25, color: "#8D6E48" },
+                              { name: "Windows", value: 20, color: "#B79F85" },
+                              { name: "Android", value: 15, color: "#D4C5B4" }
+                            ]}
+                          />
+                        </div>
+                        
+                        <div className="flex-1 mt-8 md:mt-0">
+                          <div className="p-4 rounded-lg bg-[#F8F6F3]">
+                            <h4 className="text-lg font-medium text-gray-800 mb-4">Device Insights</h4>
+                            <ul className="space-y-3">
+                              <li className="flex items-start">
+                                <div className="bg-[#7C5832] rounded-full w-2 h-2 mt-2 mr-2"></div>
+                                <p className="text-sm text-gray-600">
+                                  <span className="font-medium">Apple iOS</span> dominates user engagement with 45% of sessions
+                                </p>
+                              </li>
+                              <li className="flex items-start">
+                                <div className="bg-[#8D6E48] rounded-full w-2 h-2 mt-2 mr-2"></div>
+                                <p className="text-sm text-gray-600">
+                                  <span className="font-medium">Mac</span> users spend 30% more time per session 
+                                </p>
+                              </li>
+                              <li className="flex items-start">
+                                <div className="bg-[#B79F85] rounded-full w-2 h-2 mt-2 mr-2"></div>
+                                <p className="text-sm text-gray-600">
+                                  <span className="font-medium">Windows</span> users have the highest conversion rate at 4.2%
+                                </p>
+                              </li>
+                              <li className="flex items-start">
+                                <div className="bg-[#D4C5B4] rounded-full w-2 h-2 mt-2 mr-2"></div>
+                                <p className="text-sm text-gray-600">
+                                  <span className="font-medium">Android</span> users are growing fastest at +27% month-over-month
+                                </p>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
                       
                       {/* Device Breakdown */}
                       <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -357,15 +390,15 @@ const AnalyticsOverview: React.FC = () => {
                           <p className="text-sm text-gray-600 mb-1">Apple</p>
                           <p className="text-xl font-bold text-[#7C5832]">45%</p>
                         </div>
-                        <div className="p-4 rounded-lg bg-[#B79F85]/20 text-center">
+                        <div className="p-4 rounded-lg bg-[#8D6E48]/10 text-center">
                           <p className="text-sm text-gray-600 mb-1">Mac</p>
                           <p className="text-xl font-bold text-[#7C5832]">25%</p>
                         </div>
-                        <div className="p-4 rounded-lg bg-[#D4C5B4]/30 text-center">
+                        <div className="p-4 rounded-lg bg-[#B79F85]/20 text-center">
                           <p className="text-sm text-gray-600 mb-1">Windows</p>
                           <p className="text-xl font-bold text-[#7C5832]">20%</p>
                         </div>
-                        <div className="p-4 rounded-lg bg-[#B79F85]/30 text-center">
+                        <div className="p-4 rounded-lg bg-[#D4C5B4]/30 text-center">
                           <p className="text-sm text-gray-600 mb-1">Android</p>
                           <p className="text-xl font-bold text-[#7C5832]">15%</p>
                         </div>
@@ -389,58 +422,67 @@ const AnalyticsOverview: React.FC = () => {
                         </div>
                       </div>
                       
-                      {/* Overall Time Spend Image */}
-                      <motion.div
-                        className="w-full rounded-lg overflow-hidden"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                        transition={{ duration: 0.6 }}
-                      >
-                        <img 
-                          src={overallTimeSpendImage} 
-                          alt="Overall Time Spend" 
-                          className="w-full h-auto"
-                        />
-                      </motion.div>
-                      
-                      {/* Weekly Breakdown */}
-                      <div className="mt-6 grid grid-cols-7 gap-2">
-                        <div className="flex flex-col items-center">
-                          <div className="w-full h-24 bg-[#D4C5B4] rounded-t-md mt-auto"></div>
-                          <p className="text-xs text-gray-600 mt-2">Sun</p>
+                      <div className="flex flex-col md:flex-row">
+                        <div className="flex-1">
+                          {/* Custom Time Spend Bar Chart */}
+                          <WeeklyBarChart 
+                            inView={inView}
+                            data={[
+                              { day: "Sun", value: 25 },
+                              { day: "Mon", value: 20 },
+                              { day: "Tue", value: 32 },
+                              { day: "Wed", value: 26 },
+                              { day: "Thu", value: 40, isHighest: true },
+                              { day: "Fri", value: 30 },
+                              { day: "Sat", value: 15 }
+                            ]}
+                            mainColor="#7C5832"
+                            secondaryColor="#D4C5B4"
+                          />
                         </div>
-                        <div className="flex flex-col items-center">
-                          <div className="w-full h-20 bg-[#D4C5B4] rounded-t-md mt-auto"></div>
-                          <p className="text-xs text-gray-600 mt-2">Mon</p>
-                        </div>
-                        <div className="flex flex-col items-center">
-                          <div className="w-full h-32 bg-[#D4C5B4] rounded-t-md mt-auto"></div>
-                          <p className="text-xs text-gray-600 mt-2">Tue</p>
-                        </div>
-                        <div className="flex flex-col items-center">
-                          <div className="w-full h-26 bg-[#D4C5B4] rounded-t-md mt-auto"></div>
-                          <p className="text-xs text-gray-600 mt-2">Wed</p>
-                        </div>
-                        <div className="flex flex-col items-center">
-                          <div className="w-full h-40 bg-[#7C5832] rounded-t-md mt-auto"></div>
-                          <p className="text-xs text-gray-600 mt-2">Thu</p>
-                        </div>
-                        <div className="flex flex-col items-center">
-                          <div className="w-full h-30 bg-[#D4C5B4] rounded-t-md mt-auto"></div>
-                          <p className="text-xs text-gray-600 mt-2">Fri</p>
-                        </div>
-                        <div className="flex flex-col items-center">
-                          <div className="w-full h-14 bg-[#D4C5B4] rounded-t-md mt-auto"></div>
-                          <p className="text-xs text-gray-600 mt-2">Sat</p>
+                        
+                        <div className="flex-1 mt-8 md:mt-0 md:ml-6">
+                          <div className="p-4 rounded-lg bg-[#F8F6F3]">
+                            <h4 className="text-lg font-medium text-gray-800 mb-4">Time Spend Insights</h4>
+                            <ul className="space-y-3">
+                              <li className="flex items-start">
+                                <div className="bg-[#7C5832] rounded-full w-2 h-2 mt-2 mr-2"></div>
+                                <p className="text-sm text-gray-600">
+                                  <span className="font-medium">Thursday</span> shows 40 min average session time, your content performs best mid-week
+                                </p>
+                              </li>
+                              <li className="flex items-start">
+                                <div className="bg-[#7C5832]/70 rounded-full w-2 h-2 mt-2 mr-2"></div>
+                                <p className="text-sm text-gray-600">
+                                  <span className="font-medium">Weekend dip</span> indicates your content is primarily consumed during work hours
+                                </p>
+                              </li>
+                              <li className="flex items-start">
+                                <div className="bg-[#7C5832]/70 rounded-full w-2 h-2 mt-2 mr-2"></div>
+                                <p className="text-sm text-gray-600">
+                                  <span className="font-medium">Tuesday engagement</span> has increased 28% from last month, showing growing interest
+                                </p>
+                              </li>
+                              <li className="flex items-start">
+                                <div className="bg-[#7C5832]/70 rounded-full w-2 h-2 mt-2 mr-2"></div>
+                                <p className="text-sm text-gray-600">
+                                  <span className="font-medium">Average time</span> of 27 minutes is 3 minutes above industry standard
+                                </p>
+                              </li>
+                            </ul>
+                          </div>
                         </div>
                       </div>
                       
-                      <div className="mt-6 flex justify-between items-center">
-                        <div className="text-sm text-gray-600">
-                          <span className="font-medium">Average time:</span> 27 minutes
+                      <div className="mt-6 flex flex-col md:flex-row justify-between items-center bg-[#F8F6F3]/50 p-4 rounded-lg">
+                        <div className="text-sm text-gray-600 mb-2 md:mb-0">
+                          <span className="font-medium">Average session time:</span> 27 minutes
+                        </div>
+                        <div className="text-sm text-gray-600 mb-2 md:mb-0">
+                          <span className="font-medium">Peak day:</span> Thursday (40 min)
                         </div>
                         <div className="text-sm text-gray-600">
-                          <span className="font-medium">Peak day:</span> Thursday (40 min)
+                          <span className="font-medium">Monthly growth:</span> +12% from last period
                         </div>
                       </div>
                     </CardContent>
