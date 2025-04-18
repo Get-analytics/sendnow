@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { X, Menu } from "lucide-react";
+import logoImage from "../assets/logo.png";
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -49,7 +50,7 @@ const Header: React.FC = () => {
           <Link href="/">
             <div className="flex items-center">
               <img 
-                src="/attached_assets/Asset%202@4x_1744978710412.png" 
+                src={logoImage} 
                 alt="Sendnow Logo" 
                 className="h-8" 
               />
