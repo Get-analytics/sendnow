@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Check } from "lucide-react";
+import { Check, X } from "lucide-react";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
-import { useState } from "react";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -38,122 +38,97 @@ const planVariants = {
   }),
   hover: {
     y: -5,
-    boxShadow: "0 20px 40px -10px rgba(0, 0, 0, 0.1)",
+    boxShadow: "0 10px 30px -5px rgba(0, 0, 0, 0.1)",
     transition: { duration: 0.3 }
   }
 };
 
 const plans = [
   {
-    name: "Free",
-    description: "Perfect for trying out SendNow",
-    price: {
-      monthly: "$0",
-      annually: "$0"
-    },
-    highlighted: false,
+    name: "Free Plan",
+    price: "$0",
+    period: "/month",
+    borderColor: "border-gray-200",
+    buttonColor: "bg-gray-100 text-[#333333] hover:bg-gray-200",
     features: [
-      "Up to 3 links",
-      "50MB file limit",
-      "Basic analytics",
-      "Links active for 7 days",
-      "Includes Watermark"
+      { name: "Up to 3 links", included: true },
+      { name: "50MB file limit", included: true },
+      { name: "Links active for 7 days", included: true },
+      { name: "No Analytics Export", included: false },
+      { name: "Includes Watermark", included: false }
     ],
-    cta: "Get started",
-    ctaColor: "bg-slate-200 hover:bg-slate-300 text-slate-800"
+    popular: false,
+    cta: "Get Started"
   },
   {
-    name: "Basic",
-    description: "For professionals and small teams",
-    price: {
-      monthly: "$10",
-      annually: "$8"
-    },
-    highlighted: true,
+    name: "Basic Plan",
+    price: "$10",
+    period: "/month",
+    borderColor: "border-[#B79F85]",
+    buttonColor: "bg-[#B79F85] text-white hover:bg-[#B79F85]/90",
     features: [
-      "Up to 30 links",
-      "500MB file limit",
-      "Advanced analytics",
-      "Links active for 2 months",
-      "No watermark",
-      "Email support",
-      "Analytics Export"
+      { name: "Up to 15 links", included: true },
+      { name: "500MB file limit", included: true },
+      { name: "Links active for 2 months", included: true },
+      { name: "Analytics Export", included: true },
+      { name: "No Watermark", included: true }
     ],
-    cta: "Start with Basic",
-    ctaColor: "bg-primary hover:bg-primary/90 text-white"
+    popular: false,
+    cta: "Upgrade Now"
   },
   {
-    name: "Pro",
-    description: "For growing businesses",
-    price: {
-      monthly: "$99",
-      annually: "$79"
-    },
-    highlighted: false,
+    name: "Pro Plan",
+    price: "$99",
+    period: "/month",
+    borderColor: "border-primary",
+    buttonColor: "bg-primary text-white hover:bg-primary/90",
     features: [
-      "Up to 100 links",
-      "10GB file limit",
-      "Advanced analytics",
-      "Links active for 3 months",
-      "No watermark",
-      "Priority support",
-      "Heatmap Analytics",
-      "Custom Domain"
+      { name: "Up to 100 links", included: true },
+      { name: "10GB file limit", included: true },
+      { name: "Links active for 3 months", included: true },
+      { name: "Heatmap Analytics", included: true },
+      { name: "Custom Domain", included: true }
     ],
-    cta: "Start with Pro",
-    ctaColor: "bg-slate-800 hover:bg-slate-700 text-white"
+    popular: true,
+    cta: "Upgrade Now"
+  },
+  {
+    name: "Enterprise",
+    price: "Custom",
+    period: "",
+    borderColor: "border-gray-700",
+    buttonColor: "bg-gray-700 text-white hover:bg-gray-800",
+    features: [
+      { name: "Unlimited links", included: true },
+      { name: "Negotiable file limits", included: true },
+      { name: "Custom link duration", included: true },
+      { name: "Advanced analytics", included: true },
+      { name: "Priority support", included: true }
+    ],
+    popular: false,
+    cta: "Contact Us"
   }
 ];
 
 const Pricing = () => {
   const { ref: pricingRef, inView: pricingInView } = useIntersectionObserver({ threshold: 0.1 });
-  const [billingCycle, setBillingCycle] = useState<"monthly" | "annually">("monthly");
 
   return (
-    <section id="pricing" className="py-24 px-4 sm:px-6 lg:px-8 bg-blue-50" ref={pricingRef}>
+    <section id="pricing" className="py-20 px-4 sm:px-6 lg:px-8 bg-[#F8F6F3]" ref={pricingRef}>
       <motion.div
-        className="max-w-6xl mx-auto"
+        className="max-w-7xl mx-auto"
         variants={containerVariants}
         initial="hidden"
         animate={pricingInView ? "visible" : "hidden"}
       >
-        <motion.div className="text-center mb-12" variants={itemVariants}>
-          <h2 className="text-3xl font-bold text-slate-800 mb-4">Simple, transparent pricing</h2>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Choose a plan that works for you. All plans include core analytics features.
+        <motion.div className="text-center mb-16" variants={itemVariants}>
+          <h2 className="text-3xl font-bold text-primary mb-4">Plans That Scale With You</h2>
+          <p className="text-lg text-[#333333]/80 max-w-2xl mx-auto">
+            Choose the plan that fits your needs. Start free and upgrade as you grow.
           </p>
         </motion.div>
         
-        <motion.div 
-          className="flex justify-center mb-12"
-          variants={itemVariants}
-        >
-          <div className="inline-flex items-center bg-white rounded-full p-1 shadow-sm">
-            <button
-              className={`px-6 py-2 rounded-full text-sm font-medium ${
-                billingCycle === "monthly" 
-                ? "bg-primary text-white" 
-                : "text-slate-700 hover:text-primary"
-              }`}
-              onClick={() => setBillingCycle("monthly")}
-            >
-              Bill Monthly
-            </button>
-            <button
-              className={`px-6 py-2 rounded-full text-sm font-medium ${
-                billingCycle === "annually" 
-                ? "bg-primary text-white" 
-                : "text-slate-700 hover:text-primary"
-              }`}
-              onClick={() => setBillingCycle("annually")}
-            >
-              Bill Annually
-              <span className="ml-1 text-xs bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full">Save 20%</span>
-            </button>
-          </div>
-        </motion.div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {plans.map((plan, i) => (
             <motion.div
               key={plan.name}
@@ -162,69 +137,44 @@ const Pricing = () => {
               animate={pricingInView ? "visible" : "hidden"}
               whileHover="hover"
               custom={i}
-              className={`bg-white rounded-2xl overflow-hidden shadow-lg border ${
-                plan.highlighted 
-                ? 'border-primary ring-4 ring-primary/10 relative' 
-                : 'border-slate-200'
-              }`}
             >
-              {plan.highlighted && (
-                <div className="absolute top-0 right-0 bg-primary text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
-                  MOST POPULAR
-                </div>
-              )}
-              <div className="p-8">
-                <h3 className="text-xl font-bold text-slate-800 mb-1">{plan.name}</h3>
-                <p className="text-slate-500 text-sm mb-6">{plan.description}</p>
-                
-                <div className="mb-6">
-                  <span className="text-4xl font-bold text-slate-800">{plan.price[billingCycle]}</span>
-                  <span className="text-slate-500 ml-1">per month</span>
-                  {billingCycle === "annually" && (
-                    <div className="text-green-600 text-sm mt-1">Billed annually</div>
-                  )}
-                </div>
-                
-                <Button 
-                  className={`w-full py-6 font-medium rounded-lg ${plan.ctaColor}`}
-                >
-                  {plan.cta}
-                </Button>
-              </div>
-              
-              <div className="bg-slate-50 p-8 border-t border-slate-100">
-                <p className="font-medium text-sm text-slate-700 mb-6">WHAT'S INCLUDED:</p>
-                <ul className="space-y-4">
-                  {plan.features.map((feature, index) => (
-                    <li key={index} className="flex items-start">
-                      <Check className="h-5 w-5 text-primary mr-3 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-slate-600">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <Card className={`bg-white shadow-md border-t-4 ${plan.borderColor} h-full ${plan.popular ? 'relative' : ''}`}>
+                {plan.popular && (
+                  <div className="absolute top-0 right-0 bg-primary text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">
+                    POPULAR
+                  </div>
+                )}
+                <CardContent className="p-6">
+                  <h3 className="text-xl font-bold mb-2">{plan.name}</h3>
+                  <div className="mb-6">
+                    <span className="text-4xl font-bold">{plan.price}</span>
+                    <span className="text-[#333333]/60">{plan.period}</span>
+                  </div>
+                  <ul className="space-y-3 mb-8">
+                    {plan.features.map((feature) => (
+                      <li key={feature.name} className="flex items-center">
+                        {feature.included ? (
+                          <Check className="h-5 w-5 text-green-500 mr-2" />
+                        ) : (
+                          <X className="h-5 w-5 text-[#333333]/40 mr-2" />
+                        )}
+                        <span className={feature.included ? "" : "text-[#333333]/40"}>
+                          {feature.name}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Button 
+                    className={`w-full ${plan.buttonColor}`}
+                    variant="default"
+                  >
+                    {plan.cta}
+                  </Button>
+                </CardContent>
+              </Card>
             </motion.div>
           ))}
         </div>
-        
-        <motion.div 
-          className="mt-16 bg-white rounded-2xl p-8 shadow-lg border border-slate-200"
-          variants={itemVariants}
-        >
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div>
-              <h3 className="text-2xl font-bold text-slate-800 mb-2">Enterprise Plan</h3>
-              <p className="text-slate-600 md:max-w-md">
-                Custom solution for organizations with advanced analytics needs and high volumes.
-              </p>
-            </div>
-            <Button 
-              className="bg-slate-800 hover:bg-slate-700 text-white px-8 py-6 mt-6 md:mt-0"
-            >
-              Contact Sales
-            </Button>
-          </div>
-        </motion.div>
       </motion.div>
     </section>
   );

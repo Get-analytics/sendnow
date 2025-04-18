@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Card, CardContent } from "@/components/ui/card";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
-import { TrendingUp, BarChart2, Users, Clock, ChevronRight, CheckCircle2 } from "lucide-react";
+import { RefreshCw, Users, Clock, TrendingDown, Filter, Layers, Map, BadgeHelp } from "lucide-react";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -24,178 +27,246 @@ const itemVariants = {
   },
 };
 
-const features = [
-  {
-    icon: <TrendingUp className="h-5 w-5" />,
-    color: "bg-blue-100 text-blue-600",
-    title: "Analytics dashboard",
-    description: "Simple metrics to understand who's viewing your content"
-  },
-  {
-    icon: <BarChart2 className="h-5 w-5" />,
-    color: "bg-green-100 text-green-600",
-    title: "Custom reports",
-    description: "Export and share performance data with your team"
-  },
-  {
-    icon: <Users className="h-5 w-5" />,
-    color: "bg-purple-100 text-purple-600",
-    title: "Audience insights",
-    description: "Track demographic data and viewer engagement"
-  },
-  {
-    icon: <Clock className="h-5 w-5" />,
-    color: "bg-amber-100 text-amber-600", 
-    title: "View duration",
-    description: "See how long people spend on your content"
-  },
-];
+const featureCardVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: (i: number) => ({
+    y: 0,
+    opacity: 1,
+    transition: {
+      delay: 0.1 * i,
+      duration: 0.5,
+    },
+  }),
+  hover: {
+    y: -5,
+    boxShadow: "0 10px 30px -5px rgba(0, 0, 0, 0.1)",
+    transition: { duration: 0.3 }
+  }
+};
 
 const DashboardPreview = () => {
   const { ref: previewRef, inView: previewInView } = useIntersectionObserver({ threshold: 0.1 });
+  const [activeTab, setActiveTab] = useState("overview");
+
+  const features = [
+    {
+      icon: <Layers className="h-6 w-6 text-primary" />,
+      title: "Heatmap Analytics",
+      description: "See exactly where your audience spends their time and what captures their attention on your documents and presentations."
+    },
+    {
+      icon: <BadgeHelp className="h-6 w-6 text-primary" />,
+      title: "Video Engagement",
+      description: "Track video watch time, seek behavior, and rewind actions to understand how viewers interact with your video content."
+    },
+    {
+      icon: <Map className="h-6 w-6 text-primary" />,
+      title: "Location Insights",
+      description: "Understand where and when your audience is engaging with your content with detailed geographical analytics."
+    }
+  ];
 
   return (
-    <section id="features" className="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50" ref={previewRef}>
+    <section id="features" className="py-20 px-4 sm:px-6 lg:px-8 bg-[#F8F6F3]" ref={previewRef}>
       <motion.div
-        className="max-w-6xl mx-auto"
+        className="max-w-7xl mx-auto"
         variants={containerVariants}
         initial="hidden"
         animate={previewInView ? "visible" : "hidden"}
       >
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <motion.div variants={itemVariants}>
-            <div className="bg-white p-6 rounded-2xl shadow-xl">
-              <div className="flex flex-col space-y-8">
-                <div className="flex space-x-4">
-                  <div className="bg-blue-50 flex items-center justify-center p-3 rounded-xl">
-                    <TrendingUp className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <div className="text-sm text-slate-500 mb-1">Your metrics are boosting</div>
-                    <div className="text-xl font-semibold text-slate-800">38,775 sessions</div>
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="bg-gray-50 p-4 rounded-xl">
-                    <div className="flex items-center mb-2">
-                      <Clock className="h-4 w-4 text-primary mr-2" />
-                      <span className="text-sm font-medium text-slate-800">Average time</span>
-                    </div>
-                    <div className="text-2xl font-bold text-slate-900">1:27</div>
-                    <div className="text-xs text-green-600 mt-1">+12% from last month</div>
-                  </div>
-                  
-                  <div className="bg-gray-50 p-4 rounded-xl">
-                    <div className="flex items-center mb-2">
-                      <Users className="h-4 w-4 text-primary mr-2" />
-                      <span className="text-sm font-medium text-slate-800">Unique visitors</span>
-                    </div>
-                    <div className="text-2xl font-bold text-slate-900">1,337</div>
-                    <div className="text-xs text-green-600 mt-1">+18% from last week</div>
-                  </div>
-                  
-                  <div className="bg-gray-50 p-4 rounded-xl">
-                    <div className="flex items-center mb-2">
-                      <BarChart2 className="h-4 w-4 text-primary mr-2" />
-                      <span className="text-sm font-medium text-slate-800">Conversion</span>
-                    </div>
-                    <div className="text-2xl font-bold text-slate-900">12.8%</div>
-                    <div className="text-xs text-red-500 mt-1">-2% from last month</div>
-                  </div>
-                </div>
-                
-                <div className="h-48 bg-gray-100 rounded-lg overflow-hidden relative">
-                  <img 
-                    src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
-                    alt="Analytics chart" 
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute bottom-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-xs font-medium text-primary">
-                    Pro plan unlocks historical data
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-          
-          <motion.div 
-            variants={itemVariants}
-            className="space-y-8"
-          >
-            <div>
-              <h2 className="text-3xl font-bold text-slate-800 mb-4">
-                Your content deserves beautiful digital analytics
-              </h2>
-              <p className="text-slate-600 mb-8">
-                Our simple dashboard gives you all the insights you need to understand 
-                how your audience interacts with your content. Track engagement, analyze
-                behavior, and make data-driven decisions.
-              </p>
-            </div>
-            
-            <div className="space-y-4">
-              {features.map((feature, index) => (
-                <motion.div 
-                  key={index}
-                  className="flex p-4 rounded-xl bg-white shadow-sm hover:shadow-md transition-shadow"
-                  variants={itemVariants}
-                  custom={index}
-                >
-                  <div className={`p-2 rounded-lg mr-4 ${feature.color}`}>
-                    {feature.icon}
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-slate-800">{feature.title}</h3>
-                    <p className="text-sm text-slate-500">{feature.description}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-            
-            <motion.div variants={itemVariants}>
-              <div className="flex items-center">
-                <a href="#" className="text-primary font-medium flex items-center hover:underline">
-                  See all analytics features
-                  <ChevronRight className="h-4 w-4 ml-1" />
-                </a>
-              </div>
-            </motion.div>
-          </motion.div>
-        </div>
+        <motion.div className="text-center mb-16" variants={itemVariants}>
+          <h2 className="text-3xl font-bold text-primary mb-4">All Your Analytics, All in One Place</h2>
+          <p className="text-lg text-[#333333]/80 max-w-2xl mx-auto">
+            Powerful insights that help you understand how your audience interacts with your content.
+          </p>
+        </motion.div>
         
         <motion.div 
-          className="mt-24 bg-blue-50 p-8 rounded-2xl"
+          className="bg-white rounded-2xl shadow-lg overflow-hidden mb-12"
           variants={itemVariants}
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <div>
-              <h3 className="text-2xl font-bold text-slate-800 mb-4">
-                A feature-rich platform for the most demanding analytics needs
-              </h3>
-              <p className="text-slate-600 mb-6">
-                Track everything from basic views to advanced engagement metrics. Our platform 
-                scales with your needs, from small projects to enterprise solutions.
-              </p>
-              
-              <div className="space-y-3">
-                {["Real-time analytics dashboard", "Custom event tracking", "Advanced viewer demographics", "Exportable reports"].map((item, i) => (
-                  <div key={i} className="flex items-center">
-                    <CheckCircle2 className="h-5 w-5 text-primary mr-2" />
-                    <span className="text-slate-700">{item}</span>
-                  </div>
-                ))}
-              </div>
+          <Tabs defaultValue="overview" className="w-full" value={activeTab} onValueChange={setActiveTab}>
+            <div className="border-b border-gray-200 overflow-x-auto">
+              <TabsList className="bg-transparent h-auto p-0">
+                <TabsTrigger 
+                  value="overview" 
+                  className={`px-6 py-4 ${activeTab === 'overview' ? 'text-primary border-b-2 border-primary font-medium' : 'text-[#333333]/60 border-b-2 border-transparent hover:text-primary'} transition-colors duration-300 rounded-none`}
+                >
+                  Overview
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="analytics" 
+                  className={`px-6 py-4 ${activeTab === 'analytics' ? 'text-primary border-b-2 border-primary font-medium' : 'text-[#333333]/60 border-b-2 border-transparent hover:text-primary'} transition-colors duration-300 rounded-none`}
+                >
+                  Session Analytics
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="time" 
+                  className={`px-6 py-4 ${activeTab === 'time' ? 'text-primary border-b-2 border-primary font-medium' : 'text-[#333333]/60 border-b-2 border-transparent hover:text-primary'} transition-colors duration-300 rounded-none`}
+                >
+                  Time Spent
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="insights" 
+                  className={`px-6 py-4 ${activeTab === 'insights' ? 'text-primary border-b-2 border-primary font-medium' : 'text-[#333333]/60 border-b-2 border-transparent hover:text-primary'} transition-colors duration-300 rounded-none`}
+                >
+                  Content Insights
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="video" 
+                  className={`px-6 py-4 ${activeTab === 'video' ? 'text-primary border-b-2 border-primary font-medium' : 'text-[#333333]/60 border-b-2 border-transparent hover:text-primary'} transition-colors duration-300 rounded-none`}
+                >
+                  Video Analytics
+                </TabsTrigger>
+              </TabsList>
             </div>
             
-            <div className="bg-white p-4 rounded-xl shadow-lg">
-              <img 
-                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
-                alt="Advanced analytics dashboard" 
-                className="rounded-lg w-full" 
-              />
-            </div>
-          </div>
+            <TabsContent value="overview" className="p-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="col-span-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                    <Card className="bg-white shadow">
+                      <CardContent className="p-4">
+                        <div className="flex items-center mb-2">
+                          <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mr-2">
+                            <Users className="h-4 w-4 text-primary" />
+                          </div>
+                          <p className="text-[#333333]/60 text-sm">Total Session</p>
+                        </div>
+                        <p className="text-2xl font-bold">38,774</p>
+                      </CardContent>
+                    </Card>
+                    
+                    <Card className="bg-white shadow">
+                      <CardContent className="p-4">
+                        <div className="flex items-center mb-2">
+                          <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mr-2">
+                            <Clock className="h-4 w-4 text-primary" />
+                          </div>
+                          <p className="text-[#333333]/60 text-sm">Time Spend</p>
+                        </div>
+                        <p className="text-2xl font-bold">1h 27m</p>
+                      </CardContent>
+                    </Card>
+                    
+                    <Card className="bg-white shadow">
+                      <CardContent className="p-4">
+                        <div className="flex items-center mb-2">
+                          <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mr-2">
+                            <Users className="h-4 w-4 text-primary" />
+                          </div>
+                          <p className="text-[#333333]/60 text-sm">Unique Visitors</p>
+                        </div>
+                        <p className="text-2xl font-bold">1,337</p>
+                      </CardContent>
+                    </Card>
+                    
+                    <Card className="bg-white shadow">
+                      <CardContent className="p-4">
+                        <div className="flex items-center mb-2">
+                          <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mr-2">
+                            <TrendingDown className="h-4 w-4 text-primary" />
+                          </div>
+                          <p className="text-[#333333]/60 text-sm">Bounce Rate</p>
+                        </div>
+                        <p className="text-2xl font-bold">12.76%</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+                
+                <Card className="h-full shadow">
+                  <CardContent className="p-6">
+                    <div className="flex items-center mb-4">
+                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mr-2">
+                        <RefreshCw className="h-4 w-4 text-primary" />
+                      </div>
+                      <h3 className="text-lg font-semibold">Overall Session</h3>
+                    </div>
+                    
+                    <div className="flex mb-4 ml-1 space-x-4 text-sm">
+                      <button className="font-medium text-primary">Today</button>
+                      <button className="text-[#333333]/60">Yesterday</button>
+                      <button className="text-[#333333]/60">Last week</button>
+                      <button className="text-[#333333]/60 border-b border-[#333333]">Last month</button>
+                      <button className="text-[#333333]/60">Custom</button>
+                    </div>
+                    
+                    <div className="relative h-40 mt-4">
+                      <img 
+                        src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
+                        alt="Session Analytics" 
+                        className="w-full h-full object-cover rounded-lg" 
+                      />
+                      <div className="absolute bottom-0 right-0 bg-white/80 px-3 py-1 rounded-lg text-sm font-medium text-green-600">
+                        +12% <span className="text-[#333333]/60">yesterday</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                <Card className="h-full shadow">
+                  <CardContent className="p-6">
+                    <div className="flex items-start justify-between mb-4">
+                      <h3 className="text-lg font-semibold">Traffic Source</h3>
+                      <div className="flex space-x-2 text-sm">
+                        <button className="px-3 py-1 bg-primary/10 rounded-md text-primary font-medium">Map View</button>
+                        <button className="px-3 py-1 rounded-md text-[#333333]/60">List View</button>
+                        <button className="px-3 py-1 rounded-md text-[#333333]/60">
+                          <Filter className="h-4 w-4 inline mr-1" />
+                          <span className="hidden lg:inline">Traffic Medium</span>
+                        </button>
+                      </div>
+                    </div>
+                    
+                    <div className="h-40 relative">
+                      <img 
+                        src="https://images.unsplash.com/photo-1589519160732-57fc6fdf5223?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
+                        alt="World Map" 
+                        className="w-full h-full object-cover rounded-lg" 
+                      />
+                      <div className="absolute top-1/4 left-1/3 bg-primary/80 text-white px-2 py-1 rounded text-xs">
+                        59 Visitors<br />
+                        <span className="text-white/80 text-[10px]">Jan 24, 2024</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </TabsContent>
+            
+            {['analytics', 'time', 'insights', 'video'].map(tab => (
+              <TabsContent key={tab} value={tab} className="p-6">
+                <div className="flex flex-col items-center justify-center h-80">
+                  <img 
+                    src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
+                    alt={`${tab.charAt(0).toUpperCase() + tab.slice(1)} Analytics`}
+                    className="w-full max-w-2xl rounded-lg shadow"
+                  />
+                </div>
+              </TabsContent>
+            ))}
+          </Tabs>
+        </motion.div>
+        
+        <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {features.map((feature, i) => (
+            <motion.div
+              key={feature.title}
+              className="bg-white p-6 rounded-xl shadow hover:shadow-lg transition-all duration-300"
+              variants={featureCardVariants}
+              initial="hidden"
+              animate={previewInView ? "visible" : "hidden"}
+              whileHover="hover"
+              custom={i}
+            >
+              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                {feature.icon}
+              </div>
+              <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+              <p className="text-[#333333]/70">{feature.description}</p>
+            </motion.div>
+          ))}
         </motion.div>
       </motion.div>
     </section>
