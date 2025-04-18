@@ -8,6 +8,7 @@ import FeatureSection from "@/components/FeatureSection";
 import Testimonials from "@/components/Testimonials";
 import PricingSection from "@/components/PricingSection";
 import FAQSection from "@/components/FAQSection";
+import ContactForm from "@/components/ContactForm";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 
@@ -28,6 +29,7 @@ const Home: React.FC = () => {
       <Testimonials />
       <PricingSection />
       <FAQSection />
+      <ContactForm />
       <CTASection />
       <Footer />
     </motion.div>
