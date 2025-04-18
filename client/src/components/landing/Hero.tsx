@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
+import uploadFormImg from "../../assets/upload_form.png";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -66,9 +67,9 @@ const Hero = () => {
             className="overflow-hidden rounded-xl shadow-lg"
           >
             <img 
-              src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
-              alt="Dashboard analytics preview" 
-              className="w-full h-auto object-cover" 
+              src={uploadFormImg}
+              alt="Upload form interface" 
+              className="w-full h-auto object-contain bg-white" 
             />
           </motion.div>
         </div>

@@ -4,6 +4,8 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 import { RefreshCw, Users, Clock, TrendingDown, Filter, Layers, Map, BadgeHelp } from "lucide-react";
+import timeSpendImg from "../../assets/time_spend.png";
+import totalSessionImg from "../../assets/total_session_page.png";
 
 const containerVariants = {
   hidden: { opacity: 0 },
