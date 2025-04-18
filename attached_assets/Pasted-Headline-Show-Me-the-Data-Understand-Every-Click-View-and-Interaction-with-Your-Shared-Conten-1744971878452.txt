@@ -1,0 +1,174 @@
+Headline:  "Show Me the Data!" Understand Every Click, View, and Interaction with Your Shared Content.
+Subheadline: Stop guessing. Start knowing. Sendnow provides powerful analytics, heatmaps, and video insights for all your shared files and links.
+Call to Action Buttons:
+Upload. Share. Analyze. For Free
+
+
+
+Problem → Solution
+Title: Stop Sending Blind—Get Data That Matters
+
+
+Sub copy: Ditch the guessing game. Sendnow turns your file shares into intel missions, packing heatmaps, session stats, bounce rates, location insights, and video‑play patterns—all in one dashboard. Finally, you’ll know if they skimmed, replayed, or bounced.
+
+
+CTA: See It in Action
+
+
+
+Key Features & Benefits
+Title: All Your Analytics, All in One Place
+Sub Copy : 
+
+Upload & Share Anything: Effortlessly upload and share all your important files – PDFs, documents, presentations, images, and videos – with simple link sharing.
+Short & Sweet Links: Create clean, professional shortened links that are easy to share and track.
+Heatmap Analytics: See exactly where your audience spends their time and what captures their attention on your documents and presentations.
+Video Engagement Deep Dive: Track video watch time, seek behavior, and rewind actions to understand how viewers interact with your video content.
+Overall Session Analytics: Get a comprehensive view of total sessions, unique visitors, and bounce rates for your shared links.
+Location & Time Insights: Understand where and when your audience is engaging with your content.
+Return User Tracking: Identify and understand your most engaged audience segments.
+Analytics Export: (Available on paid plans) Export your valuable data for further analysis and reporting.
+Custom Domain: (Available on Pro & Enterprise) Brand your links with your own domain for a professional touch.
+No Watermarks: (Available on paid plans) Share your content without any distracting watermarks.
+
+
+
+
+Social Proof & Trust Signals
+Title: Loved by 10K+ Senders Worldwide
+
+
+Sub copy: From freelancers to Fortune 500s, teams are using Sendnow to boost engagement by up to 70%. Check out the real stories behind the numbers.
+
+
+CTA: Read Their Stories
+
+
+"Sendnow has completely changed how I understand my audience. As a marketer, I used to guess which parts of my presentations were resonating. Now, with Sendnow's heatmaps, I have clear visual data that's helping me refine my content for better engagement. It's like having X-ray vision for my presentations!" - Sarah M., Marketing Manager
+
+
+"As a video creator, knowing if people are actually watching my entire video or dropping off is crucial. Sendnow's detailed video analytics, showing watch time and even when viewers rewind, is a game-changer. I can now tailor my content to keep my audience hooked. Finally, meaningful video stats in one place!" - Raj Patel, Content Creator
+
+
+"For my small business, Sendnow is an absolute steal. The free plan allowed me to share important documents with clients professionally, and even with the limited features, I got more insight than just knowing if they clicked. Upgrading to the Basic plan was a no-brainer for the increased limits and the ability to export analytics. It's making a real difference in how I track engagement with my proposals." - Lisa K., Small Business Owner
+
+
+"I love how Sendnow handles all my file types. Whether it's a PDF report, a quick image, or a video presentation, I can upload it, get a short link, and see how people are interacting with it. The location data is also surprisingly useful for understanding my global reach. It's so much better than using multiple separate tools." - David Chen, Sales Executive
+
+
+"Sendnow's Pro plan is a powerhouse. The custom domain option makes my shared links look incredibly professional, and the increased file upload limit has been a lifesaver. The heatmaps for my longer documents are invaluable for understanding where readers are focusing. Plus, knowing I have priority support gives me peace of mind. This tool is worth every penny." - Maria Garcia, Training Consultant
+
+
+Use Cases & Industries
+Title: Built for Every Workflow
+
+
+Sub copy: Whether you’re pitching investors, teaching online, or marketing your latest drop, Sendnow arms you with the insights to level up your content game.
+
+
+CTA: Explore Use Cases
+
+
+
+Pricing Plans
+Title: Plans That Scale With You
+
+
+Feature
+Free Plan
+Basic Plan ($10/month)
+Pro Plan ($99/month)
+Enterprise (Contact)
+Links
+Up to 3
+Up to 15
+Up to 100
+Unlimited (Custom)
+File Limit
+50MB
+500MB
+10GB
+Negotiable
+Link Active
+7 Days
+2 Months
+3 Months
+Custom
+Heatmap
+No
+No
+Yes
+Yes
+Analytics Export
+No
+Yes
+Yes
+Yes
+Watermark
+Yes
+No
+No
+No
+Custom Domain
+No
+No
+Yes
+Yes
+Get Started
+Free
+Upgrade Now
+Upgrade Now
+Contact Us
+
+
+
+
+
+
+
+FAQ
+Title: Got Questions? We’ve Got Answers
+
+
+Which file formats can I share with Sendnow?
+ We’ve got you covered—upload PDFs, Word/Excel docs, PPTs, images (JPG/PNG/GIF) and videos (MP4/AVI). Plus, you can link-to-link files for that extra flexibility. (Free plan caps each file smaller, Pro/Enterprise goes big.)
+
+
+How long do my links stay active?
+
+
+Free: 7 days, then poof.
+
+
+Basic: Up to 2 months even if you cancel.
+
+
+Pro: Up to 3 months post-cancellation.
+
+
+Enterprise: Custom durations—let’s talk.
+
+
+Can I export my analytics?
+ Yup! Hit “Export” on Basic, Pro, and Enterprise plans. Free plan gives in‑app stats only—no downloads.
+
+
+What video analytics do I get?
+ We track total watch time, play/pause events, seeks, rewinds and drop‑off points. On Pro+ you also unlock heatmaps that show exactly where viewers binge or bail.
+
+
+Is my data secure and private?
+ Locked down with industry‑standard SSL/TLS in transit and AES‑256 at rest. We’re GDPR‑friendly and never peek at your files—Scout’s honor.
+
+Title: "Go Ahead, Make My Link (Smarter)."
+Body: Stop flying blind. Start gaining the insights you need to make your content work harder.
+Call to Action Buttons:
+Start Your Free Trial Today! (Prominent, primary button)
+
+(Footer)
+Copyright © [Year] Sendnow (LinkSavvy). All rights reserved.
+Privacy Policy
+Terms of Service
+Contact Us
+
+
