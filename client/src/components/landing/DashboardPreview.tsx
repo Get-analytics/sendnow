@@ -194,13 +194,13 @@ const DashboardPreview = () => {
                       <button className="text-[#333333]/60">Custom</button>
                     </div>
                     
-                    <div className="relative h-40 mt-4">
+                    <div className="relative h-auto mt-4">
                       <img 
-                        src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
-                        alt="Session Analytics" 
-                        className="w-full h-full object-cover rounded-lg" 
+                        src={timeSpendImg} 
+                        alt="Time Spend Analytics" 
+                        className="w-full h-auto object-contain rounded-lg" 
                       />
-                      <div className="absolute bottom-0 right-0 bg-white/80 px-3 py-1 rounded-lg text-sm font-medium text-green-600">
+                      <div className="absolute bottom-4 right-4 bg-white/80 px-3 py-1 rounded-lg text-sm font-medium text-green-600">
                         +12% <span className="text-[#333333]/60">yesterday</span>
                       </div>
                     </div>
@@ -221,16 +221,12 @@ const DashboardPreview = () => {
                       </div>
                     </div>
                     
-                    <div className="h-40 relative">
+                    <div className="h-auto relative">
                       <img 
-                        src="https://images.unsplash.com/photo-1589519160732-57fc6fdf5223?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
-                        alt="World Map" 
-                        className="w-full h-full object-cover rounded-lg" 
+                        src={totalSessionImg} 
+                        alt="Total Session Page" 
+                        className="w-full h-auto object-contain rounded-lg" 
                       />
-                      <div className="absolute top-1/4 left-1/3 bg-primary/80 text-white px-2 py-1 rounded text-xs">
-                        59 Visitors<br />
-                        <span className="text-white/80 text-[10px]">Jan 24, 2024</span>
-                      </div>
                     </div>
                   </CardContent>
                 </Card>
@@ -239,11 +235,11 @@ const DashboardPreview = () => {
             
             {['analytics', 'time', 'insights', 'video'].map(tab => (
               <TabsContent key={tab} value={tab} className="p-6">
-                <div className="flex flex-col items-center justify-center h-80">
+                <div className="flex flex-col items-center justify-center">
                   <img 
-                    src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
+                    src={tab === 'time' ? timeSpendImg : totalSessionImg} 
                     alt={`${tab.charAt(0).toUpperCase() + tab.slice(1)} Analytics`}
-                    className="w-full max-w-2xl rounded-lg shadow"
+                    className="w-full max-w-4xl rounded-lg shadow"
                   />
                 </div>
               </TabsContent>
