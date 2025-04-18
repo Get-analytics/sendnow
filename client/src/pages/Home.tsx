@@ -5,6 +5,7 @@ import Hero from "@/components/Hero";
 import UploadSection from "@/components/UploadSection";
 import AnalyticsOverview from "@/components/AnalyticsOverview";
 import FeatureSection from "@/components/FeatureSection";
+import UserTypeSection from "@/components/UserTypeSection";
 import Testimonials from "@/components/Testimonials";
 import PricingSection from "@/components/PricingSection";
 import FAQSection from "@/components/FAQSection";
@@ -26,6 +27,7 @@ const Home: React.FC = () => {
       <UploadSection />
       <AnalyticsOverview />
       <FeatureSection />
+      <UserTypeSection />
       <Testimonials />
       <PricingSection />
       <FAQSection />
