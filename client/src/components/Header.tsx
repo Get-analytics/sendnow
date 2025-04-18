@@ -47,13 +47,13 @@ const Header: React.FC = () => {
           transition={{ duration: 0.2 }}
         >
           <Link href="/">
-            <a className="flex items-center">
+            <div className="flex items-center">
               <img 
-                src="/attached_assets/Asset 2@4x_1744978710412.png" 
+                src="/attached_assets/Asset%202@4x_1744978710412.png" 
                 alt="Sendnow Logo" 
                 className="h-8" 
               />
-            </a>
+            </div>
           </Link>
         </motion.div>
 
