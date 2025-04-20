@@ -22,6 +22,7 @@ import WeeklyBarChart from "./charts/WeeklyBarChart";
 import HeatmapChart from "./charts/HeatmapChart";
 import TimeSpentChart from "./charts/TimeSpentChart";
 import VideoAnalyticsChart from "./charts/VideoAnalyticsChart";
+import MapViewChart from "./charts/MapViewChart";
 import { Card, CardContent } from "@/components/ui/card";
 
 const AnalyticsOverview: React.FC = () => {
@@ -104,6 +105,12 @@ const AnalyticsOverview: React.FC = () => {
                 className={`mr-8 py-4 border-b-2 px-1 rounded-none data-[state=active]:shadow-none ${activeTab === 'overallTimeSpend' ? 'border-[#7C5832] text-[#7C5832]' : 'border-transparent text-gray-500'}`}
               >
                 Overall Time Spend
+              </TabsTrigger>
+              <TabsTrigger 
+                value="mapAnalytics"
+                className={`mr-8 py-4 border-b-2 px-1 rounded-none data-[state=active]:shadow-none ${activeTab === 'mapAnalytics' ? 'border-[#7C5832] text-[#7C5832]' : 'border-transparent text-gray-500'}`}
+              >
+                Map Analytics
               </TabsTrigger>
               <TabsTrigger 
                 value="heatmap"
@@ -249,73 +256,26 @@ const AnalyticsOverview: React.FC = () => {
                     <CardContent className="p-6">
                       <div className="flex justify-between items-center mb-6">
                         <h3 className="font-medium text-gray-800">Traffic Source</h3>
-                        <div className="flex space-x-3 text-sm">
-                          <button className="text-[#7C5832] font-medium">Map View</button>
-                          <button className="text-gray-500 hover:text-[#7C5832] transition-colors">List View</button>
-                          <button className="text-gray-500 hover:text-[#7C5832] transition-colors">Traffic Medium</button>
-                        </div>
                       </div>
                       
-                      {/* World Map */}
-                      <div className="h-[200px] relative overflow-hidden rounded-lg">
-                        <motion.div
-                          className="absolute inset-0 bg-gradient-to-r from-[#B79F85]/40 to-[#7C5832]/40"
-                          initial={{ opacity: 0 }}
-                          animate={inView ? { opacity: 1 } : { opacity: 0 }}
-                          transition={{ duration: 0.5, delay: 0.2 }}
-                        >
-                          <svg width="100%" height="100%" viewBox="0 0 1000 600" fill="none">
-                            <path d="M132.5,168.5 L131.3,163.2 L133.2,157.3 L128.8,153.7 L125,147.3 L118.8,146.2 L114.5,150.3 L108.8,148.8 L102.5,152.7 L97.5,151.5 L92.5,154.8 L87.5,160.3 L82.5,165.5 L77.5,173.3 L75,179.2 L76.3,185.5 L79.5,189.5 L84.5,192.5 L89.5,194.5 L95,194.3 L100,193.5 L105,192.5 L110,190.3 L115.5,185.5 L121.2,180.5 L126.3,175.3 L132.5,168.5" fill="#B79F85" stroke="#7C5832" strokeWidth="0.5" />
-                            <path d="M243.8,148.5 L242.5,142.5 L239.3,137.5 L235,135 L230,134.3 L225,135.5 L220,138.5 L215.5,142.3 L212.5,146.8 L211.3,152.5 L213.5,157.7 L217.5,161 L222.5,162.5 L227.5,162.3 L232.5,160.5 L237.2,157.5 L241.3,153.5 L243.8,148.5" fill="#B79F85" stroke="#7C5832" strokeWidth="0.5" />
-                            <path d="M383.8,122.5 L380,119.3 L375,118.8 L370,120.5 L366.3,124.5 L365,129.5 L366.3,134.5 L370,138.5 L375,140.3 L380,139.5 L383.8,136.3 L385.5,131.3 L383.8,126.5 L383.8,122.5" fill="#B79F85" stroke="#7C5832" strokeWidth="0.5" />
-                            <path d="M500,100 L495,97.5 L490,97.5 L485,100 L482.5,105 L482.5,110 L485,115 L490,117.5 L495,117.5 L500,115 L502.5,110 L502.5,105 L500,100" fill="#B79F85" stroke="#7C5832" strokeWidth="0.5" />
-                            <path d="M615,115 L610,112.5 L605,112.5 L600,115 L597.5,120 L597.5,125 L600,130 L605,132.5 L610,132.5 L615,130 L617.5,125 L617.5,120 L615,115" fill="#B79F85" stroke="#7C5832" strokeWidth="0.5" />
-                            <path d="M730,130 L725,127.5 L720,127.5 L715,130 L712.5,135 L712.5,140 L715,145 L720,147.5 L725,147.5 L730,145 L732.5,140 L732.5,135 L730,130" fill="#B79F85" stroke="#7C5832" strokeWidth="0.5" />
-                            <path d="M845,145 L840,142.5 L835,142.5 L830,145 L827.5,150 L827.5,155 L830,160 L835,162.5 L840,162.5 L845,160 L847.5,155 L847.5,150 L845,145" fill="#B79F85" stroke="#7C5832" strokeWidth="0.5" />
-                            <path d="M960,160 L955,157.5 L950,157.5 L945,160 L942.5,165 L942.5,170 L945,175 L950,177.5 L955,177.5 L960,175 L962.5,170 L962.5,165 L960,160" fill="#B79F85" stroke="#7C5832" strokeWidth="0.5" />
-                            
-                            <path d="M173.3,270.5 L170,267.3 L165,266.8 L160,268.5 L156.3,272.5 L155,277.5 L156.3,282.5 L160,286.5 L165,288.3 L170,287.5 L173.8,284.3 L175.5,279.3 L173.8,274.5 L173.3,270.5" fill="#7C5832" stroke="#3f2b14" strokeWidth="0.5" />
-                            <path d="M440,310 L435,307.5 L430,307.5 L425,310 L422.5,315 L422.5,320 L425,325 L430,327.5 L435,327.5 L440,325 L442.5,320 L442.5,315 L440,310" fill="#7C5832" stroke="#3f2b14" strokeWidth="0.5" />
-                            <path d="M700,250 L695,247.5 L690,247.5 L685,250 L682.5,255 L682.5,260 L685,265 L690,267.5 L695,267.5 L700,265 L702.5,260 L702.5,255 L700,250" fill="#7C5832" stroke="#3f2b14" strokeWidth="0.5" />
-                            <path d="M880,280 L875,277.5 L870,277.5 L865,280 L862.5,285 L862.5,290 L865,295 L870,297.5 L875,297.5 L880,295 L882.5,290 L882.5,285 L880,280" fill="#7C5832" stroke="#3f2b14" strokeWidth="0.5" />
-                            
-                            <circle cx="250" cy="175" r="3" fill="#7C5832" opacity="0.7" className="animate-pulse" />
-                            <circle cx="450" cy="210" r="4" fill="#7C5832" opacity="0.7" className="animate-pulse" />
-                            <circle cx="650" cy="190" r="3" fill="#7C5832" opacity="0.7" className="animate-pulse" />
-                            <circle cx="850" cy="220" r="4" fill="#7C5832" opacity="0.7" className="animate-pulse" />
-                          </svg>
-                        </motion.div>
-                        
-                        {/* Tooltip */}
-                        <motion.div 
-                          className="absolute top-[30%] right-[25%] bg-white px-3 py-1 rounded shadow-md text-xs"
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-                          transition={{ duration: 0.3, delay: 1 }}
-                        >
-                          <div className="font-medium">59 Visitors</div>
-                          <div className="text-gray-500">Jan 24, 2023</div>
-                        </motion.div>
-                        
-                        {/* Zoom Controls */}
-                        <motion.div 
-                          className="absolute bottom-4 right-4 flex flex-col bg-white rounded-md shadow overflow-hidden"
-                          initial={{ opacity: 0 }}
-                          animate={inView ? { opacity: 1 } : { opacity: 0 }}
-                          transition={{ duration: 0.3, delay: 0.8 }}
-                        >
-                          <button className="p-1 hover:bg-gray-100 border-b">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                            </svg>
-                          </button>
-                          <button className="p-1 hover:bg-gray-100">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15" />
-                            </svg>
-                          </button>
-                        </motion.div>
-                      </div>
+                      {/* Map View Chart */}
+                      <MapViewChart 
+                        inView={inView}
+                        data={[
+                          { name: "United States", country: "US", lat: 37.0902, lng: -95.7129, visitors: 8354, percentage: 43 },
+                          { name: "United Kingdom", country: "UK", lat: 55.3781, lng: -3.4360, visitors: 2106, percentage: 11 },
+                          { name: "Germany", country: "DE", lat: 51.1657, lng: 10.4515, visitors: 1892, percentage: 10 },
+                          { name: "France", country: "FR", lat: 46.2276, lng: 2.2137, visitors: 1546, percentage: 8 },
+                          { name: "Canada", country: "CA", lat: 56.1304, lng: -106.3468, visitors: 1231, percentage: 6 },
+                          { name: "Australia", country: "AU", lat: -25.2744, lng: 133.7751, visitors: 978, percentage: 5 },
+                          { name: "Japan", country: "JP", lat: 36.2048, lng: 138.2529, visitors: 854, percentage: 4 },
+                          { name: "India", country: "IN", lat: 20.5937, lng: 78.9629, visitors: 743, percentage: 4 },
+                          { name: "Spain", country: "ES", lat: 40.4637, lng: -3.7492, visitors: 621, percentage: 3 },
+                          { name: "Brazil", country: "BR", lat: -14.2350, lng: -51.9253, visitors: 578, percentage: 3 },
+                          { name: "Italy", country: "IT", lat: 41.8719, lng: 12.5674, visitors: 521, percentage: 3 }
+                        ]}
+                        height={200}
+                      />
                     </CardContent>
                   </Card>
                 </TabsContent>
@@ -538,6 +498,75 @@ const AnalyticsOverview: React.FC = () => {
                         <div className="text-sm text-gray-600">
                           <span className="font-medium">Monthly growth:</span> +12% from last period
                         </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+                
+                <TabsContent value="mapAnalytics" className="mt-6">
+                  <Card className="border border-gray-100 shadow-sm">
+                    <CardContent className="p-6">
+                      <div className="flex justify-between items-center mb-6">
+                        <div className="flex items-center space-x-3">
+                          <div className="bg-[#7C5832] bg-opacity-10 p-2 rounded-lg">
+                            <svg className="w-5 h-5 text-[#7C5832]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <circle cx="12" cy="10" r="3" />
+                              <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z" />
+                            </svg>
+                          </div>
+                          <h3 className="font-medium text-gray-800">Geographic Analytics</h3>
+                        </div>
+                        <div>
+                          <span className="px-3 py-1 bg-[#7C5832] bg-opacity-5 text-[#7C5832] text-sm rounded-md font-medium">Worldwide</span>
+                        </div>
+                      </div>
+                      
+                      {/* Interactive Map Chart */}
+                      <MapViewChart 
+                        inView={inView}
+                        data={[
+                          { name: "United States", country: "US", lat: 37.0902, lng: -95.7129, visitors: 8354, percentage: 43 },
+                          { name: "United Kingdom", country: "UK", lat: 55.3781, lng: -3.4360, visitors: 2106, percentage: 11 },
+                          { name: "Germany", country: "DE", lat: 51.1657, lng: 10.4515, visitors: 1892, percentage: 10 },
+                          { name: "France", country: "FR", lat: 46.2276, lng: 2.2137, visitors: 1546, percentage: 8 },
+                          { name: "Canada", country: "CA", lat: 56.1304, lng: -106.3468, visitors: 1231, percentage: 6 },
+                          { name: "Australia", country: "AU", lat: -25.2744, lng: 133.7751, visitors: 978, percentage: 5 },
+                          { name: "Japan", country: "JP", lat: 36.2048, lng: 138.2529, visitors: 854, percentage: 4 },
+                          { name: "India", country: "IN", lat: 20.5937, lng: 78.9629, visitors: 743, percentage: 4 },
+                          { name: "Spain", country: "ES", lat: 40.4637, lng: -3.7492, visitors: 621, percentage: 3 },
+                          { name: "Brazil", country: "BR", lat: -14.2350, lng: -51.9253, visitors: 578, percentage: 3 },
+                          { name: "Italy", country: "IT", lat: 41.8719, lng: 12.5674, visitors: 521, percentage: 3 },
+                          { name: "South Korea", country: "KR", lat: 35.9078, lng: 127.7669, visitors: 489, percentage: 2.5 },
+                          { name: "Netherlands", country: "NL", lat: 52.1326, lng: 5.2913, visitors: 456, percentage: 2.3 },
+                          { name: "Sweden", country: "SE", lat: 60.1282, lng: 18.6435, visitors: 423, percentage: 2.2 },
+                          { name: "Singapore", country: "SG", lat: 1.3521, lng: 103.8198, visitors: 398, percentage: 2 },
+                          { name: "Russia", country: "RU", lat: 61.5240, lng: 105.3188, visitors: 367, percentage: 1.9 },
+                          { name: "Switzerland", country: "CH", lat: 46.8182, lng: 8.2275, visitors: 342, percentage: 1.8 },
+                          { name: "Belgium", country: "BE", lat: 50.5039, lng: 4.4699, visitors: 321, percentage: 1.7 }
+                        ]}
+                        height={400}
+                      />
+                      
+                      <div className="mt-8 bg-[#F8F6F3]/60 p-4 rounded-lg">
+                        <h4 className="font-medium text-gray-800 mb-3">Geographic Insights</h4>
+                        <ul className="space-y-2 text-sm text-gray-600">
+                          <li className="flex items-start">
+                            <div className="text-[#7C5832] mr-2">•</div>
+                            <p>43% of your audience comes from the United States, with particular concentration in tech hubs</p>
+                          </li>
+                          <li className="flex items-start">
+                            <div className="text-[#7C5832] mr-2">•</div>
+                            <p>European traffic (UK, Germany, France) accounts for 29% of visitors, ideal for potential expansion</p>
+                          </li>
+                          <li className="flex items-start">
+                            <div className="text-[#7C5832] mr-2">•</div>
+                            <p>Asian markets (Japan, India, South Korea) show strong growth potential with increasing engagement</p>
+                          </li>
+                          <li className="flex items-start">
+                            <div className="text-[#7C5832] mr-2">•</div>
+                            <p>Consider localizing content for top regions to improve engagement and conversion rates</p>
+                          </li>
+                        </ul>
                       </div>
                     </CardContent>
                   </Card>
