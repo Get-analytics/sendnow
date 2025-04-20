@@ -14,12 +14,14 @@ import {
   Smartphone,
   Laptop,
   PieChart,
-  BarChart
+  BarChart,
+  Film
 } from "lucide-react";
 import DevicesPieChart from "./charts/DevicesPieChart";
 import WeeklyBarChart from "./charts/WeeklyBarChart";
 import HeatmapChart from "./charts/HeatmapChart";
 import TimeSpentChart from "./charts/TimeSpentChart";
+import VideoAnalyticsChart from "./charts/VideoAnalyticsChart";
 import { Card, CardContent } from "@/components/ui/card";
 
 const AnalyticsOverview: React.FC = () => {
@@ -575,9 +577,36 @@ const AnalyticsOverview: React.FC = () => {
                 </TabsContent>
                 
                 <TabsContent value="videoAnalytics" className="mt-6">
-                  <div className="rounded-lg bg-gray-50 h-[300px] flex items-center justify-center border border-gray-100">
-                    <p className="text-gray-500">Video analytics would display here showing engagement patterns, rewinds, and drop-off points.</p>
-                  </div>
+                  <Card className="border border-gray-100 shadow-sm">
+                    <CardContent className="p-6">
+                      <div className="flex justify-between items-center mb-6">
+                        <div className="flex items-center space-x-3">
+                          <div className="bg-[#7C5832] bg-opacity-10 p-2 rounded-lg">
+                            <Film className="w-5 h-5 text-[#7C5832]" />
+                          </div>
+                          <h3 className="font-medium text-gray-800">Video Analytics</h3>
+                        </div>
+                        <div>
+                          <span className="px-3 py-1 bg-[#7C5832] bg-opacity-5 text-[#7C5832] text-sm rounded-md font-medium">Last 30 days</span>
+                        </div>
+                      </div>
+                      
+                      <VideoAnalyticsChart 
+                        inView={inView}
+                        videoTitle="Product Demo"
+                        duration="01:32"
+                        totalViews={247}
+                        avgWatchTime="01:03"
+                        segments={[
+                          { startTime: "00:00", endTime: "00:20", views: 247, engagement: 90 },
+                          { startTime: "00:20", endTime: "00:40", views: 222, engagement: 85 },
+                          { startTime: "00:40", endTime: "01:00", views: 195, engagement: 75 },
+                          { startTime: "01:00", endTime: "01:20", views: 168, engagement: 65, dropOff: true },
+                          { startTime: "01:20", endTime: "01:32", views: 147, engagement: 60 }
+                        ]}
+                      />
+                    </CardContent>
+                  </Card>
                 </TabsContent>
               </div>
             </div>
